@@ -49,6 +49,6 @@ public class GameView extends View
 	@Override
 	public void onDraw(Canvas canvas)
 	{
-		canvas.drawCircle(10, 10, 2, null);
+		//canvas.drawCircle(10, 10, 2, null);
 	}
 }
