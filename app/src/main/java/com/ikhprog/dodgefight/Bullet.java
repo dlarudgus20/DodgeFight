@@ -5,4 +5,7 @@ package com.ikhprog.dodgefight;
  */
 public class Bullet
 {
+	public float x, y;
+	public float dx, dy;
+	public boolean bHit;
 }

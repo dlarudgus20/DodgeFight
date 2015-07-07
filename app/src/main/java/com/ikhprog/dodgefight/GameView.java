@@ -28,27 +28,63 @@ package com.ikhprog.dodgefight;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.Point;
 import android.util.AttributeSet;
 import android.view.View;
+
+import java.util.LinkedList;
 
 /**
  * Created by a on 2015-06-30.
  */
 public class GameView extends View
 {
+	private Paint mptPlayer, mptBullet, mptBulletHit;
+	private Point mPlayer = null;
+	private LinkedList<Bullet> mlstBullet = null;
+
 	public GameView(Context context)
 	{
 		super(context);
+		init();
 	}
 
 	public GameView(Context context, AttributeSet attr)
 	{
 		super(context, attr);
+		init();
 	}
 
-	@Override
-	public void onDraw(Canvas canvas)
+	private void init()
 	{
-		//canvas.drawCircle(10, 10, 2, null);
+		mptPlayer = new Paint(Paint.ANTI_ALIAS_FLAG);
+		mptPlayer.setColor(0xff00ffff);
+		mptBullet = new Paint(Paint.ANTI_ALIAS_FLAG);
+		mptBullet.setColor(0xffffffff);
+		mptBulletHit = new Paint(Paint.ANTI_ALIAS_FLAG);
+		mptBulletHit.setColor(0xffff3419);
+	}
+
+	public Point getPlayer() { return mPlayer; }
+	public void setPlayer(Point p) { mPlayer = p; }
+	public LinkedList<Bullet> getBulletList() { return mlstBullet; }
+	public void setBulletList(LinkedList<Bullet> lst) { mlstBullet = lst; }
+
+	@Override
+	protected void onDraw(Canvas canvas)
+	{
+		if (mPlayer != null)
+		{
+			canvas.drawCircle(mPlayer.x, mPlayer.y, 2, mptPlayer);
+		}
+
+		if (mlstBullet != null)
+		{
+			for (Bullet bullet : mlstBullet)
+			{
+				canvas.drawCircle(bullet.x, bullet.y, 2, bullet.bHit ? mptBullet : mptBulletHit);
+			}
+		}
 	}
 }
