@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+	<Button
+		android:id="@+id/input_center_btn"
+		android:layout_centerInParent="true"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_margin="5dp"
+		android:background="@drawable/ic_gps_fixed_black_24dp"/>
+	<Button
+		android:id="@+id/input_up_btn"
+		android:layout_above="@id/input_center_btn"
+		android:layout_centerHorizontal="true"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:background="@drawable/ic_keyboard_arrow_up_black_24dp"/>
+	<Button
+		android:id="@+id/input_left_btn"
+		android:layout_toLeftOf="@id/input_center_btn"
+		android:layout_toStartOf="@id/input_center_btn"
+		android:layout_centerVertical="true"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:background="@drawable/ic_keyboard_arrow_left_black_24dp"/>
+	<Button
+		android:id="@+id/input_right_btn"
+		android:layout_toRightOf="@id/input_center_btn"
+		android:layout_toEndOf="@id/input_center_btn"
+		android:layout_centerVertical="true"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:background="@drawable/ic_keyboard_arrow_right_black_24dp"/>
+	<Button
+		android:id="@+id/input_down_btn"
+		android:layout_below="@id/input_center_btn"
+		android:layout_centerHorizontal="true"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:background="@drawable/ic_keyboard_arrow_down_black_24dp"/>
+
+</RelativeLayout>
