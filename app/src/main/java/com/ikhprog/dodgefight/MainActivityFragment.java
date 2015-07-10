@@ -40,6 +40,8 @@ import java.util.LinkedList;
 public class MainActivityFragment extends Fragment
 {
 	private GameView mGameView;
+	private InputView mInputView;
+
 	private Point mPlayer = new Point(0, 0);
 	private LinkedList<Bullet> mlstBullet = new LinkedList<Bullet>();
 
@@ -50,14 +52,12 @@ public class MainActivityFragment extends Fragment
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
-		new Handler().postDelayed(new Runnable() {
-			@Override
-			public void run()
-			{
-				mTimerHandler.sendMessage(mTimerHandler.obtainMessage(MOVE_TIMER_ID, MOVE_TIMER_FREQ));
-				mTimerHandler.sendMessage(mTimerHandler.obtainMessage(CREATION_TIMER_ID, CREATION_TIMER_FREQ));
-			}
-		}, 1000);
+		super.onCreate(savedInstanceState);
+
+		mTimerHandler.sendMessageDelayed(
+			mTimerHandler.obtainMessage(MOVE_TIMER_ID, MOVE_TIMER_FREQ), 1000);
+		mTimerHandler.sendMessageDelayed(
+			mTimerHandler.obtainMessage(CREATION_TIMER_ID, CREATION_TIMER_FREQ), 1000);
 	}
 
     @Override
@@ -66,6 +66,8 @@ public class MainActivityFragment extends Fragment
         View v = inflater.inflate(R.layout.fragment_main, container, false);
 
 	    mGameView = (GameView)v.findViewById(R.id.game_view);
+	    mInputView = (InputView)v.findViewById(R.id.input_view);
+
 	    mGameView.setPlayer(mPlayer);
 	    mGameView.setBulletList(mlstBullet);
 
@@ -76,18 +78,23 @@ public class MainActivityFragment extends Fragment
 	private static final int MOVE_TIMER_FREQ = 13;
 	private static final int CREATION_TIMER_ID = 2;
 	private static final int CREATION_TIMER_FREQ = 675;
-	private final Handler mTimerHandler = new Handler() {
+	private final Handler mTimerHandler = new Handler(new Handler.Callback() {
 		@Override
-		public void handleMessage(Message msg)
+		public boolean handleMessage(Message msg)
 		{
-			super.handleMessage(msg);
 			switch (msg.what)
 			{
 				case MOVE_TIMER_ID:
+					mPlayer.x += mInputView.getDx();
+					mPlayer.y += mInputView.getDy();
 					break;
 				case CREATION_TIMER_ID:
 					break;
 			}
+
+			Message new_msg = mTimerHandler.obtainMessage(msg.what, msg.arg1);
+			mTimerHandler.sendMessageDelayed(new_msg, new_msg.arg1);
+			return true;
 		}
-	};
+	});
 }

@@ -56,6 +56,12 @@ public class GameView extends View
 		init();
 	}
 
+	public GameView(Context context, AttributeSet attr, int defStyle)
+	{
+		super(context, attr, defStyle);
+		init();
+	}
+
 	private void init()
 	{
 		mptPlayer = new Paint(Paint.ANTI_ALIAS_FLAG);
